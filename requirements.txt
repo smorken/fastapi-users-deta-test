@@ -1,0 +1,3 @@
+fastapi
+fastapi_users
+git+https://github.com/smorken/fastapi-users-db-deta_base
