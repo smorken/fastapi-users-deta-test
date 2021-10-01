@@ -26,3 +26,12 @@ app.include_router(fastapi_users.get_users_router(), prefix="/users", tags=["use
 @app.get("/authenticated-route")
 async def authenticated_route(user: UserDB = Depends(current_active_user)):
     return {"message": f"Hello {user.email}!"}
+
+@app.get("/test")
+async def get_test():
+    return {"message": "test"}
+
+
+#if __name__ == "__main__":
+#    import uvicorn
+#    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,13 +1,16 @@
-import asyncio
 from deta import Deta
+import traceback
 from fastapi_users_db_deta_base import DetaBaseUserDatabase
-from fastapi_users_db_deta_base import deta_base_async
 from app.models import UserDB
 
 
 def get_user_db():
-    loop = asyncio.get_event_loop()
     deta = Deta()
-    db = deta.Base("users")
-    yield DetaBaseUserDatabase(
-        UserDB, deta_base_async.wrap_deta_base_async(loop, db))
+    db1 = deta.Base("debug")
+    try:
+        db = deta.AsyncBase("users")
+        yield DetaBaseUserDatabase(
+            UserDB, db)
+    except:
+        # temporary debugging
+        db1.put({"error": traceback.format_exc()})
